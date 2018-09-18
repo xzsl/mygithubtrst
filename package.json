@@ -1,5 +1,5 @@
 {
-  "name": "mapproject",
+  "name": "firstmap",
   "version": "1.0.0",
   "description": "A Vue.js project",
   "author": "xzsl <wkai.c@qq.com>",
@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "vue": "^2.5.2",
+    "vue-amap": "^0.5.8",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
