@@ -22,9 +22,6 @@ export default {
   data () {
     return {
       zoom: 11,
-  
-
-
       center: [121.5273285, 31.21515044],
       circle: {
         clickable: true,
