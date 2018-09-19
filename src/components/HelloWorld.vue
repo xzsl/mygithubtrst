@@ -5,9 +5,12 @@
         <el-amap-info-window  :position="mywindow.position" :content="mywindow.content" :visible="mywindow.visible" :events="mywindow.events"></el-amap-info-window>
         <el-amap-marker :position="marker.position" :events="marker.events" :visible="marker.visible" :draggable="marker.draggable"></el-amap-marker>
         <el-amap-circle :center="circle.center" :radius="circle.radius" :fillOpacity="circle.fillOpacity" :events="circle.events" :strokeColor="circle.strokeColor" :strokeStyle="circle.strokeStyle" :fillColor="circle.fillColor" :editable="true"></el-amap-circle>
-    
-      </el-amap>
+       </el-amap>
     </div>
+  <div>
+    <button type="button" name="button" v-on:click="offset">offset</button>
+    <button type="button" name="button" v-on:click="bitp">bitp</button>
+  </div>
   </div>
 </template>
 
@@ -18,10 +21,13 @@
 </style>
 
 <script>
+import axios from 'axios'
 export default {
   data () {
     return {
       zoom: 11,
+      jingdu:'',
+      weidu:'',
       center: [121.5273285, 31.21515044],
       circle: {
         clickable: true,
@@ -65,13 +71,45 @@ export default {
       },
       plugin: {
         pName: 'Scale',
-        events: {
+        events: { 
           init (instance) {
             console.log(instance)
           }
         }
       }
     }
+  },
+  methods:{
+  offset(){
+  let position = this.marker.position;
+          this.marker.position = [position[0] + 0.002, position[1] - 0.002];
+
+  },
+  bitp(){
+  let position = this.marker.position;
+          this.marker.position = [this.jingdu, this.weidu];
+          console.log(this.jingdu)
+
+    },
+   getHomeInfo () {
+    axios.get('/api/index.json')
+     .then(this.getHomeInfoSucc)
+   },
+   getHomeInfoSucc( res){
+     res=res.data
+     if(res.ret&&res.data)
+     {
+      this.jingdu=res.data.jingdu;
+      this.weidu=res.data.weidu
+     }
+     console.log(res)
+   }
+  },
+   
+  mounted () {
+    this.getHomeInfo()
   }
+
+
 }
 </script>
